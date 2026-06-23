@@ -16,10 +16,7 @@ try:
     resp = requests.get(url)
     data = resp.json()
 
-    if resp.status_code != 200:
-        print("API ERROR")
-
-    elif data["cod"] == 200:
+    if data["cod"] == 200:
         temp = data["main"]["temp"]
         humidity = data["main"]["humidity"]
         wind_speed = data["wind"]["speed"]
@@ -40,8 +37,10 @@ try:
             print("ADVICE : It's a cold day!")
         else:
             print("ADVICE : Weather is pleasant today!")
-    else:
+    elif str(data["cod"]) == "404":
         print("City not found. Please try again.")
+    else:
+        print("API ERROR")
 except:
     print("Unable to get weather data. Please try again later.")
 
